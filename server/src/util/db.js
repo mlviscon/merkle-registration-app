@@ -6,7 +6,8 @@ module.exports = async function getDatabase(){
         host: 'localhost',
         user: 'root',
         password: 'root',
-        database: 'merkle_registration'
+        database: 'merkle_registration',
+        dateStrings: 'true'
     }
 
     const connection = await mysql.createConnection(config);
