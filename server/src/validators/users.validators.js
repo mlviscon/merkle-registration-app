@@ -10,8 +10,8 @@ module.exports.post = async function(req, res, next) {
         'VT','VI','VA','WA','WV','WI','WY'
         ];
 
-        if (isNaN(req.body.zip) || !req.body.zip || (req.body.zip.length != 5 && req.body.zip.length != 9)){
-            throw Error('invalid zip code')
+        if (!new RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/).test(req.body.zip) ) {
+            throw Error('invalid zip')
         }
         if (req.body.firstName == undefined) {
             throw Error('invalid first name')

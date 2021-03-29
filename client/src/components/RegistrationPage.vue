@@ -93,8 +93,8 @@ export default {
                 this.error = 'invalid state'
                 return;
             }
-            if (!this.zip || isNaN(this.zip) || (this.zip.length != 5 && this.zip.length != 9)) {
-                this.error = 'invalid zip'
+            if (!new RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/).test(this.zip) ) {
+                this.error = 'invalid zip';
                 return;
             }
             if (!this.country || this.country.toUpperCase() != 'US') {
