@@ -1,8 +1,5 @@
 <template>
   <div class="admin_page">
-      <span>admin page</span>
-      <!-- <div v-for="user in users" v-bind:key="user.id">{{user.id}} {{user.first_name}} {{user.last_name}}</div> -->
-
     <div class="user-list-container">
         <table class="user-table">
             <tr>
@@ -47,10 +44,14 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://localhost:3001/users?orderBy=registration_date').then(response => {
+        axios.get('http://merkleregistrationapi-env.eba-apbizruq.us-east-2.elasticbeanstalk.com/users?orderBy=registration_date').then(response => {
             this.users = response.data.data
             console.log(response.data.data);
         })
+        // axios.get('http://localhost:3001/users?orderBy=registration_date').then(response => {
+        //     this.users = response.data.data
+        //     console.log(response.data.data);
+        // })
     }
 }
 </script>
@@ -64,6 +65,7 @@ export default {
     .user-list-container {
         width: 90%;
         margin: auto;
+        margin-top: 50px;
     }
 
     .user-table{

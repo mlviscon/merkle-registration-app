@@ -2,7 +2,14 @@ const validator = require('validator')
 
 module.exports.post = async function(req, res, next) {
     try {
-        // TODO check if number
+        const stateAbbreviations = [
+        'AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA',
+        'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MH','MD','MA',
+        'MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
+        'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
+        'VT','VI','VA','WA','WV','WI','WY'
+        ];
+
         if (isNaN(req.body.zip) || !req.body.zip || (req.body.zip.length != 5 && req.body.zip.length != 9)){
             throw Error('invalid zip code')
         }
@@ -18,7 +25,7 @@ module.exports.post = async function(req, res, next) {
         if (req.body.city == undefined) {
             throw Error('invalid city')
         }
-        if (req.body.state == undefined) {
+        if (req.body.state == undefined || !stateAbbreviations.includes(req.body.state.toUpperCase())) {
             throw Error('invalid state')
         }
         if (req.body.country.toUpperCase() != 'US') {

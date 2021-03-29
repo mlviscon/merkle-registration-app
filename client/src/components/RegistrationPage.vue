@@ -40,7 +40,7 @@
       </div>
 
       <div class="error-pop" v-if="error">
-          {{error}}
+          Error: {{error}}
       </div>
   </div>
 </template>
@@ -67,7 +67,16 @@ export default {
     methods: {
         submitForm() {
             this.error = undefined
-            console.log('submitting form')
+
+            const stateAbbreviations = [
+            'AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA',
+            'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MH','MD','MA',
+            'MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
+            'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
+            'VT','VI','VA','WA','WV','WI','WY'
+            ];
+
+
             if (!this.firstName || !this.lastName) {
                 this.error = 'invalid name'
                 return;
@@ -80,7 +89,7 @@ export default {
                 this.error = 'invalid city'
                 return;
             }
-            if (!this.state) {
+            if (!this.state || !stateAbbreviations.includes(this.state.toUpperCase())) {
                 this.error = 'invalid state'
                 return;
             }
@@ -101,11 +110,11 @@ export default {
                 addressOne: this.addressOne,
                 addressTwo: this.addressTwo,
                 city: this.city,
-                state: this.state,
+                state: this.state.toUpperCase(),
                 zip: this.zip,
-                country: this.country
+                country: this.country.toUpperCase()
             }
-            axios.post('http://localhost:3001/users', body).then(response => {
+            axios.post('http://merkleregistrationapi-env.eba-apbizruq.us-east-2.elasticbeanstalk.com/users', body).then(response => {
                 console.log(response.data)
                 this.$router.push('/confirmation');
             }).catch(error => {
@@ -164,10 +173,14 @@ export default {
     }
 
     .error-pop {
-        background-color: red;
+        background-color: rgb(255, 74, 74);
         color: white;
         width: 50%;
         margin: auto;
         margin-top: 20px;
+        padding-left: 20px;
+        min-height: 40px;
+        border-radius: 10px;
+        line-height: 40px;
     }
 </style>
