@@ -13,6 +13,9 @@ export default {
   name: 'App',
   components: {
     // HelloWorld
+  },
+  created() {
+    document.title = "Registration App";
   }
 }
 </script>
